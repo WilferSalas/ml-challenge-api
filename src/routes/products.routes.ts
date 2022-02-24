@@ -7,10 +7,10 @@ import ProductsService from '../services/products.service'
 const router = express.Router()
 const service = new ProductsService()
 
-router.post('/items?=', (req, res) => {
-  const { body: { searchTerm } } = req
+router.get('/', async (req, res) => {
+  const { query: { q } } = req
 
-  const products = service.find(searchTerm)
+  const products = await service.find(q)
 
   if (products) return res.status(201).json(products)
 
