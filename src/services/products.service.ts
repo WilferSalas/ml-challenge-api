@@ -29,8 +29,8 @@ class ProductsService {
       .then(res => res.data)
       .catch(err => console.log(err))
 
-    const categoryFilters = response.filters.find((filter: any) => filter.id === 'category')
-    const categories = categoryFilters.values[0].path_from_root.map((path: any) => path.name)
+    const categories = response.filters.find((filter: any) => filter.id === 'category')?.values[0]
+      .path_from_root.map((path: any) => path.name)
 
     const products = {
       author: {
