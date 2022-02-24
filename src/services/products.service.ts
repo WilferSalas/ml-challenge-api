@@ -25,32 +25,27 @@ class ProductsService {
   };
 
   async find (serachTerm: any) {
-    const flatArray = (array: any) => array.reduce((a: any[], b: any[] | any) => a.concat(Array.isArray(b) ? flatArray(b) : b), [])
-
     const response = await axios(`https://api.mercadolibre.com/sites/MLA/search?q=${serachTerm}`)
       .then(res => res.data)
       .catch(err => console.log(err))
 
     const items = response.results.map((product: Product) => {
       return {
-        item: {
-          id: product?.id,
-          title: product?.title,
-          price: {
-            currency: product?.currency_id,
-            amount: product?.price,
-            decimals: product?.price
-          },
-          picture: product?.thumbnail,
-          condition: product.condition,
-          free_shipping: product?.shipping?.free_shipping
-        }
+        id: product?.id,
+        title: product?.title,
+        price: {
+          currency: product?.currency_id,
+          amount: product?.price,
+          decimals: product?.price
+        },
+        picture: product?.thumbnail,
+        condition: product.condition,
+        free_shipping: product?.shipping?.free_shipping
       }
-    })
+    }).slice(0, 4)
 
-    const flatedFilters = flatArray(response.filters)
-    const filterCategories = flatedFilters.find((filter: any) => filter.id === 'category')
-    const categories = filterCategories.values[0].path_from_root.map((path: any) => path.name)
+    const categoryFilters = response.filters.find((filter: any) => filter.id === 'category')
+    const categories = categoryFilters.values[0].path_from_root.map((path: any) => path.name)
 
     const products = {
       author: {
