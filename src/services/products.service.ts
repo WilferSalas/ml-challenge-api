@@ -29,21 +29,6 @@ class ProductsService {
       .then(res => res.data)
       .catch(err => console.log(err))
 
-    const items = response.results.map((product: Product) => {
-      return {
-        id: product?.id,
-        title: product?.title,
-        price: {
-          currency: product?.currency_id,
-          amount: product?.price,
-          decimals: product?.price
-        },
-        picture: product?.thumbnail,
-        condition: product.condition,
-        free_shipping: product?.shipping?.free_shipping
-      }
-    }).slice(0, 4)
-
     const categoryFilters = response.filters.find((filter: any) => filter.id === 'category')
     const categories = categoryFilters.values[0].path_from_root.map((path: any) => path.name)
 
@@ -53,7 +38,20 @@ class ProductsService {
         lastname: 'Salas'
       },
       categories,
-      items
+      items: response.results.map((product: Product) => {
+        return {
+          id: product?.id,
+          title: product?.title,
+          price: {
+            currency: product?.currency_id,
+            amount: product?.price,
+            decimals: product?.price
+          },
+          picture: product?.thumbnail,
+          condition: product.condition,
+          free_shipping: product?.shipping?.free_shipping
+        }
+      }).slice(0, 4)
     }
 
     return products
