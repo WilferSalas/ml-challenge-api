@@ -10,7 +10,6 @@ const port = 3001
 
 app.use(express.json())
 app.use(cors())
-
 routerApi(app)
 
 app.get('/', (_: Request, res: Response) => {
