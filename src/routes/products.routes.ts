@@ -1,5 +1,5 @@
 // @packages
-import express from 'express'
+import express, { Application, Request, Response } from 'express'
 
 // @scripts
 import ProductsService from '../services/products.service'
@@ -7,7 +7,7 @@ import ProductsService from '../services/products.service'
 const router = express.Router()
 const service = new ProductsService()
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   const { query: { q } } = req
 
   const products = await service.find(q)
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
   return res.status(404).send('Error getting products')
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const { params: { id } } = req
 
   const product = await service.findOne(id)
