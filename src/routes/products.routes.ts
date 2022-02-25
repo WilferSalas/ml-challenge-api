@@ -1,13 +1,13 @@
 // @packages
-import express, { Application, Request, Response } from 'express'
+const express = require('express')
 
 // @scripts
-import ProductsService from '../services/products.service'
+const ProductsService = require('../services/products.service')
 
 const router = express.Router()
 const service = new ProductsService()
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req: any, res: any) => {
   const { query: { q } } = req
 
   const products = await service.find(q)
@@ -17,7 +17,7 @@ router.get('/', async (req: Request, res: Response) => {
   return res.status(404).send('Error getting products')
 })
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: any, res: any) => {
   const { params: { id } } = req
 
   const product = await service.findOne(id)
@@ -27,4 +27,4 @@ router.get('/:id', async (req: Request, res: Response) => {
   return res.status(404).send('Product not found')
 })
 
-export default router
+module.exports = router

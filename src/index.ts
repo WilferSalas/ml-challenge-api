@@ -1,18 +1,18 @@
 // @packages
-import express, { Application, Request, Response } from 'express'
-import cors from 'cors'
+const express = require('express');
+const cors = require('cors');
 
 // @scripts
-import routerApi from './routes'
+const routerApi = require('./routes/index.ts')
 
-const app: Application = express()
+const app = express()
 const port = 3001
 
 app.use(express.json())
 app.use(cors())
 routerApi(app)
 
-app.get('/', (_: Request, res: Response) => {
+app.get('/', (_: any, res: any) => {
   res.status(200).send('Hello from Express')
 })
 

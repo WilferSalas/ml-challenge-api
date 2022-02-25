@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 // @packages
-import axios from 'axios'
+const axios = require('axios')
 
 interface Product {
   id: string;
@@ -24,7 +24,7 @@ class ProductsService {
     this.products = []
   };
 
-  async find (serachTerm: any) {
+  async find (serachTerm: unknown) {
     try {
       const response = await axios(`https://api.mercadolibre.com/sites/MLA/search?q=${serachTerm}`)
         .then(res => res.data)
@@ -97,4 +97,4 @@ class ProductsService {
   }
 };
 
-export default ProductsService
+module.exports = ProductsService
