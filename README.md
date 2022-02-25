@@ -29,7 +29,7 @@ $ cd ml-challenge
 $ npm i
 
 # Run the project
-$ npm run start
+$ npm run dev
 
 # Go to 
 http://localhost:3001
