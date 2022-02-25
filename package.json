@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "start": "tsc && node build/index.js",
+    "start": "tsc && node public/index.js",
     "build": "tsc",
     "test": "jest"
   },
